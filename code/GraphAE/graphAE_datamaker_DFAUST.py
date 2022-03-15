@@ -10,7 +10,7 @@ def get_pc_seqs_from_DFAUST(fname):
     with h5py.File(fname, 'r') as f:
         for sidseq in f:
             if(sidseq != 'faces'):
-                verts = f[sidseq].value.transpose([2, 0, 1])
+                verts = np.array(f[sidseq]).transpose([2, 0, 1])
                 # Write to an obj file
                 pc_seq = []
                 for iv, v in enumerate(verts):
@@ -69,15 +69,15 @@ train_fn = "../../data/DFAUST/train"
 eval_fn = "../../data/DFAUST/eval"
 test_fn = "../../data/DFAUST/test"
 
-#mean_fn = "../../data/DFAUST/mean"
-#std_fn = "../../data/DFAUST/std"
+# mean_fn = "../../data/DFAUST/mean"
+# std_fn = "../../data/DFAUST/std"
 
 
 train_pcs, eval_pcs, test_pcs = split_train_and_eval_and_test_data(
     pc_seqs, train_fn, eval_fn, test_fn)
 
-#pcs_mean  = train_pcs.mean(0)
-#pcs_std = train_pcs.std(0)
+# pcs_mean  = train_pcs.mean(0)
+# pcs_std = train_pcs.std(0)
 
-#np.save(mean_fn, pcs_mean)
-#np.save(std_fn, pcs_std)
+# np.save(mean_fn, pcs_mean)
+# np.save(std_fn, pcs_std)
