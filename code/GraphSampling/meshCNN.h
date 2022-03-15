@@ -91,8 +91,6 @@ public:
 
 
 
-    //neighbour_lst_lst  current_size*max_neighbor_num.
-    //               neighbor_num, neighbor_id0, neighbor_id1, ..., neighbor_idx, previous_size, ..., previous_size
     void save_pool_and_unpool_neighbor_info_to_npz(const string& save_path)
     {
         for(int i=0;i<_meshPoolers.size(); i++)
@@ -111,85 +109,16 @@ public:
             std::vector<size_t > shape_info = {(size_t)after_pool_size, (size_t)(1+neighbor_num_pool_2) };
             cout<<"output point num: "<<shape_info[0]<<"; max_neighbor_num: "<<shape_info[1]<<"\n";
 
-            cnpy::npy_save(save_path+"_pool"+to_string(i)+".npy", &pool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
+            // cnpy::npy_save(save_path+"_pool"+to_string(i)+".npy", &pool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
 
             cout<<"save "<<save_path+"_unpool"+to_string(i)+".npy\n";
             int neighbor_num_unpool_2 = unpool_neighborID_lst_lst.size()/before_pool_size-1;
             shape_info = {(size_t)before_pool_size, (size_t)(1+neighbor_num_unpool_2) };
             cout<<"output point num: "<<shape_info[0]<<"; max_neighbor_num: "<<shape_info[1]<<"\n";
-            cnpy::npy_save(save_path+"_unpool"+to_string(i)+".npy", &unpool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
-
-            //cout<<"save old to new index list"<<to_string(i)<<".\n";
-            //shape_info = {(size_t)after_pool_size};
-            //cout<<shape_info[0]<<" "<<shape_info[1]<<"\n";
-            //cnpy::npy_save(save_path+"_center_lst"+to_string(i)+".npy", &_meshPoolers[i]._center_lst, shape_info, "w");
-
+            // cnpy::npy_save(save_path+"_unpool"+to_string(i)+".npy", &unpool_neighborID_lst_lst [0], shape_info, "w");//"a" appends to the file we created above
         }
 
 
     }
-
-
-    /*
-     *
-    //map, per concerned center, [p_id_in_previous_layer, radius]
-    //current_size map.size()
-    //matrix_flat vector<float> to_size*previous_size
-    vector<float> get_flatten_connection_matrix(const vector<vector<Int2>> &map, const int previous_size)
-    {
-        vector<float> matrix_flat; //current_size*previous_size
-        for(int i=0;i<map.size();i++)
-        {
-            vector<float> line(previous_size);
-
-            const vector<Int2> *raw_line = &map[i];
-
-            for (int i=0;i<raw_line->size();i++)
-            {
-                int p_id = (*raw_line)[i][0];
-                int radius = (*raw_line)[i][1];
-                float value = 1.0/float(pow(2, double(radius)));
-                line[p_id] = value;
-            }
-            matrix_flat.insert(matrix_flat.end(), line.begin(), line.end());
-
-        }
-
-        return matrix_flat;
-    }
-
-    //save to npz
-    //layer_num
-    //pool1 float current_size*previous_size
-    //unpool1 float current_size*previous_size
-    //...
-    //value is 1/(radius^2)
-    void save_pool_and_unpool_matrices_to_npz(const string& save_path)
-    {
-        cout<<"Save pool and unpool matrices to npz.\n";
-        int layer_num = _meshPoolers.size();
-
-        for(int i=0;i<_meshPoolers.size(); i++)
-        {
-            int current_size = (_meshPoolers[i]._center_center_map.size());
-            int previous_size = (_meshPoolers[i]._connection_map.size());
-            std::vector<size_t > shape_info = {(size_t)current_size, (size_t)previous_size};
-            cout<<shape_info[0]<<" "<<shape_info[1]<<"\n";
-
-            cout<<"save pool "<<to_string(i)<<".\n";
-
-            vector<float> flatten_pool_matrix = get_flatten_connection_matrix(_meshPoolers[i]._pool_map, previous_size);
-            cnpy::npy_save(save_path+"_pool"+to_string(i)+".npy", &flatten_pool_matrix[0], shape_info, "w");//"a" appends to the file we created above
-
-            cout<<"save unpool "<<to_string(i)<<".\n";
-
-            vector<float> flatten_unpool_matrix = get_flatten_connection_matrix(_meshPoolers[i]._unpool_map, previous_size);
-
-            cnpy::npy_save(save_path+"_unpool"+to_string(i)+".npy", &flatten_unpool_matrix[0], shape_info, "w");//"a" appends to the file we created above
-
-        }
-    }
-     */
-
 
 };
