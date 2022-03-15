@@ -1,3 +1,4 @@
 data/DFAUST/registrations_f.hdf5
 data/DFAUST/registrations_m.hdf5
 data/DFAUST/*.npy
+data/dragon
