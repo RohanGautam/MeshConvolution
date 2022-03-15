@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/GraphSampling.dir/main.cpp.o"
   "CMakeFiles/GraphSampling.dir/cnpy/cnpy.cpp.o"
-  "GraphSampling.pdb"
+  "CMakeFiles/GraphSampling.dir/main.cpp.o"
   "GraphSampling"
+  "GraphSampling.pdb"
 )
 
 # Per-language clean rules from dependency scanning.
