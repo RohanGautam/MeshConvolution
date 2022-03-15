@@ -2,3 +2,17 @@ data/DFAUST/registrations_f.hdf5
 data/DFAUST/registrations_m.hdf5
 data/DFAUST/*.npy
 data/dragon
+
+
+# cmake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
